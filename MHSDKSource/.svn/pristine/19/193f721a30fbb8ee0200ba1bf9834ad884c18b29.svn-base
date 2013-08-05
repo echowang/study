@@ -1,0 +1,39 @@
+package com.mh.sdk.service;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import android.os.AsyncTask;
+
+public class MHRegisterService extends AsyncTask<String, Integer, String>{
+
+	public void registerUser(String username, String password){
+		if (username == null || "".equals(username) || password == null || "".equals(password)) {
+			return ;
+		}
+		
+		this.execute(username,password);
+	}
+	@Override
+	protected String doInBackground(String... params) {
+		// TODO Auto-generated method stub
+		String username = params[0];
+		String password = params[1];
+		
+		try {
+			URLEncoder.encode(username, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+	@Override
+	protected void onPostExecute(String result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+	}
+}

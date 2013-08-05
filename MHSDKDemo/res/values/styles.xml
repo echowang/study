@@ -1,0 +1,9 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+	
+	<style name="MHCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+	   <item name="android:button">@drawable/mh_checkbox_selector</item>
+	   <item name="android:paddingLeft">26.0dip</item>
+   </style>
+</resources>

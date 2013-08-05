@@ -1,0 +1,147 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color" >
+
+    <RelativeLayout
+        android:id="@+id/register_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/mh_title_bg"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/register_back"
+            android:layout_width="54dp"
+            android:layout_height="32.0dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/mh_back_selected"
+            android:text="@string/mhsdk_back"
+            android:textColor="@color/button_color"
+            android:textSize="16.0sp"
+            android:shadowDy="2"
+            android:shadowDx="0"
+            android:shadowRadius="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/mhsdk_registerTitle"
+            android:textColor="@color/button_color"
+            android:textSize="20.0sp" />
+
+        <Button
+            android:id="@+id/register_register"
+            android:layout_width="54.0dp"
+            android:layout_height="32.0dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dp"
+            android:background="@drawable/mh_finish_selected"
+            android:text="@string/mhsdk_finish"
+            android:textColor="@color/button_color"
+            android:shadowDy="2"
+            android:shadowDx="0"
+            android:shadowRadius="1" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_title" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/register_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dp"
+                android:layout_marginRight="10.0dp"
+                android:layout_marginTop="14.0dp"
+                android:text="@string/mhsdk_registerInfo"
+                android:textColor="#808080"
+                android:textSize="14.0sp" />
+
+            <LinearLayout
+                android:id="@+id/register_table"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_info"
+                android:layout_marginLeft="10.0dp"
+                android:layout_marginRight="10.0dp"
+                android:layout_marginTop="10.0dp"
+                android:background="@drawable/mh_list_coner_white"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="48.0dp"
+                    android:layout_margin="1dip"
+                    android:background="@drawable/mh_list_coner_cell" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:gravity="center"
+                        android:text="@string/mhsdk_username"
+                        android:textColor="@color/text_color"
+                        android:textSize="18.0sp" />
+
+                    <EditText
+                        android:id="@+id/register_username"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:singleLine="true"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/mhsdk_username_hint"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/hint_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="46.0dp"
+                    android:layout_marginBottom="1dip"
+                    android:layout_marginLeft="1dip"
+                    android:layout_marginRight="1dip"
+                    android:background="@drawable/mh_list_coner_cell1" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:gravity="center"
+                        android:text="@string/mhsdk_password"
+                        android:textColor="@color/text_color"
+                        android:textSize="18.0sp" />
+
+                    <EditText
+                        android:id="@+id/register_password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:singleLine="true"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/mhsdk_password_hint"
+                        android:inputType="textPassword"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/hint_color" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

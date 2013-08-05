@@ -1,0 +1,127 @@
+package com.mh.sdk;
+
+import com.mh.sdk.platform.MHPlatform;
+
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+
+public class MHPaymentActivity extends MHSDKBaseActivity implements OnClickListener{
+	private WebView mWebView;
+	private Button backBtn;
+	private Button closeBtn;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentViewByName("mh_payment_activity");
+		
+		backBtn = (Button) findViewByName("chargecenter_back");
+		backBtn.setOnClickListener(this);
+		
+		closeBtn = (Button) findViewByName("chargecenter_close");
+		closeBtn.setOnClickListener(this);
+		
+		mWebView = (WebView) findViewByName("chargecenter_webview");
+		
+		mWebView.getSettings().setJavaScriptEnabled(true);
+
+		mWebView.setWebViewClient(new WebViewClient() {
+
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				// TODO Auto-generated method stub
+				super.shouldOverrideUrlLoading(view, url);
+//				System.out.println("url => " + url);
+				if (url.startsWith("http://pay.game.pps.tv/alipay/")) {
+					// check to see if the MobileSecurePay is already
+					// installed.
+//					if (LoginService.isLogin()) {
+//						String alipayStr = "http://pay.game.pps.tv/alipay/";
+//						String money = url.substring(alipayStr.length());
+//						// System.out.println("money => " + money);
+//						AlixPay alixPay = new AlixPay(
+//								ChargeCenterActivity.this);
+//						alixPay.pay(money);
+//					} else {
+//						Toast.makeText(ChargeCenterActivity.this, "充值前请您先登录", Toast.LENGTH_SHORT).show();
+//					}
+				} else if(url.startsWith("http://pay.game.pps.tv/payover")){
+//					PPSPlatform.getInstance().getListener().paymentResult(PPSResultCode.SUCCESSPAYMENT);
+//					if (isLeavePlatform) {
+//						PPSPlatform.getInstance().getListener().leavePlatform();
+//					}
+//					ChargeCenterActivity.this.finish();
+				}else{
+					view.loadUrl(url);
+				}
+				return true;
+			}
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				// TODO Auto-generated method stub
+				super.onPageFinished(view, url);
+//				Message msg = new Message();
+//				msg.what = HIDDENDIALOG;
+//				handler.sendMessage(msg);
+				
+			}
+
+			@Override
+			public void onPageStarted(WebView view, String url,
+					Bitmap favicon) {
+				// TODO Auto-generated method stub
+				super.onPageStarted(view, url, favicon);
+//				Message msg = new Message();
+//				msg.what = 0;
+//				handler.sendMessage(msg);
+//				showDialog("正在加载");
+				
+//				Timer timer = new Timer();
+//				TimerTask task = new TimerTask(){
+//
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						Message msg = new Message();
+//						msg.what = HIDDENDIALOG;
+//						handler.sendMessage(msg);
+//					}
+//					
+//				};
+//				timer.schedule(task, 3000);
+			}
+		});
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (backBtn.getId() == v.getId()) {
+//			this.finish();
+			if (!mWebView.canGoBack()) {
+//				if (isLeavePlatform) {
+//					MHPlatform.getInstance().getListener().leavePlatform();
+//				}
+				MHPlatform.getMHPlatformInstance().getCallBackListener().leavePlatform();
+				this.finish();
+			}else{
+				mWebView.goBack();
+			}
+		}
+		
+		if (closeBtn.getId() == v.getId()) {
+//			if (isLeavePlatform) {
+//				PPSPlatform.getInstance().getListener().leavePlatform();
+//			}
+			MHPlatform.getMHPlatformInstance().getCallBackListener().leavePlatform();
+			this.finish();
+		}
+	}
+}

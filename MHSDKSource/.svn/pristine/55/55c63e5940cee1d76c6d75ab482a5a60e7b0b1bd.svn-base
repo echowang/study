@@ -1,0 +1,37 @@
+<resources>
+
+    <string name="pps_username">账号：</string>
+    <string name="pps_password">密码：</string>
+    <string name="pps_username_hint">使用PPS账号登录</string>
+    <string name="pps_password_hint">请输入密码</string>
+    <string name="pps_login">登录</string>
+    <string name="pps_register">一秒注册</string>
+    <string name="pps_cancel">取消</string>
+    <string name="pps_autoLogin">自动登录</string>
+    <string name="pps_findPwd">忘记密码</string>
+    <string name="pps_findpwd_info">请登录网站g.pps.tv通过客服中心找回密码</string>
+    <string name="pps_finish">完成</string>
+    <string name="pps_close">关闭</string>
+    <string name="pps_registerInfo">您可以输入小写字母或数字作为账号，也可以使用系统为您默认分配的账号。</string>
+    <string name="pps_agree">同意</string>
+    <string name="pps_agreement">PPS游戏用户服务协议</string>
+    <string name="pps_face">用户头像</string>
+    <string name="pps_arrow">箭头</string>
+    <string name="pps_testaccount">s11938943</string>
+    <string name="pps_rechargecenter">充值中心</string>
+    <string name="pps_changeaccount">切换账号</string>
+    <string name="pps_customercare">联系客服</string>
+    <string name="pps_about">关于我们</string>
+	<string name="Ensure">"确定"</string>
+	<string name="Cancel">"取消"</string>
+	<string name="check_sign_failed">您的订单信息已被非法篡改。</string> 
+	<string name="confirm_install_hint">"安装提示"</string>	
+	<string name="confirm_install">"为保证您的交易安全，需要您安装支付宝安全支付服务，才能进行付款。\n\n点击确定，立即安装。"</string>
+	
+	<string name="remote_call_failed">Failure calling remote service</string>
+	<string name="pps_back">返回</string>
+	<string name="pps_registerTitle">注册账号</string>
+	<string name="pps_agreementTitle">PPS游戏用户服务协议</string>
+	<string name="pps_findTitle">找回密码</string>
+	<string name="pps_accountcenterTtitle">账户中心</string>
+</resources>

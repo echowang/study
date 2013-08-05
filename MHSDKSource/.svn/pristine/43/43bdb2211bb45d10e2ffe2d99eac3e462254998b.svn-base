@@ -1,0 +1,25 @@
+package com.mh.sdk.util;
+
+import java.net.URLEncoder;
+
+public class MHPlatformConfig {
+	public final static String LOGINURL = "http://p.txwy.com/api/signin";
+	public final static String REGISTERURL = "http://p.txwy.com/api/reg";
+	
+	public final static String APPID = "10000000";
+	public final static String APPKEY = "228bf094169a40a3bd188ba37ebe8723";
+	
+	public static boolean isInitSDK = false; 
+	public static boolean isLogin = false;
+	
+	
+	@SuppressWarnings("deprecation")
+	public static String getSign(String time){
+		String sign = "appid=" + MHPlatformConfig.APPID + "&time=" + time;
+		sign = URLEncoder.encode(sign);
+		sign = MHEncryptUtil.hmac_sha1(MHPlatformConfig.APPKEY, sign);
+		System.out.println("sign => " + sign);
+		
+		return sign;
+	}
+}

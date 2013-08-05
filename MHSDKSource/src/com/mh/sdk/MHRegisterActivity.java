@@ -1,0 +1,79 @@
+package com.mh.sdk;
+
+import com.mh.sdk.service.MHGenericService;
+import com.mh.sdk.service.MHRegisterService;
+import com.mh.sdk.util.MHGenericUtil;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class MHRegisterActivity extends MHSDKBaseActivity implements OnClickListener{
+	private Button registerBtn;
+	private Button backBtn;
+	private EditText username;
+	private EditText password;
+//	private CheckBox agreeCheckBox;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentViewByName("mh_register_activity");
+		
+		registerBtn = (Button) findViewByName("register_register");
+		registerBtn.setOnClickListener(this);
+		backBtn = (Button) findViewByName("register_back");
+		backBtn.setOnClickListener(this);
+
+		username = (EditText) findViewByName("register_username");
+		password = (EditText) findViewByName("register_password");
+		
+//		agreeCheckBox = (CheckBox) findViewByName("register_agree");
+	}
+	
+	private boolean verifyUserInfo(String username,String password){
+		if(username == null || username.length() == 0){
+			MHGenericService.createAlertDialog(this,"请输入注册的用户名").show();
+			return false;
+		}
+		if(password == null || password.length() == 0){
+			MHGenericService.createAlertDialog(this,"请输入注册的密码").show();
+			return false;
+		}
+//		if(!agreeCheckBox.isChecked()){
+//			MHGenericService.createAlertDialog(this,"请同意用户服务协议").show();
+//			return false;
+//		}
+		
+		return true;
+	}
+	
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (registerBtn.getId() == v.getId()) {
+			if(!MHGenericUtil.isNetworkAvailable(this)){
+				MHGenericService.createAlertDialog(this, "当前网络不可用,请检查网络设置").show();
+				return ;
+			}
+			String name = username.getEditableText().toString().trim();
+			String pwd = password.getEditableText().toString().trim();
+			if(verifyUserInfo(name,pwd)){
+				MHRegisterService registerService = new MHRegisterService(this);
+				registerService.registerUser(name, pwd, this.getResources().getString(findStringIDByName("fuid")));
+			}
+			return ;
+		}
+		
+		if (backBtn.getId() == v.getId()) {
+			Intent intent = new Intent(this,MHLoginActivity.class);
+			startActivity(intent);
+			this.finish();
+		}
+	}
+}

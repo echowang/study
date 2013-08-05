@@ -1,0 +1,5 @@
+package com.mh.sdk;
+
+public class MHPaymentActivity extends MHSDKBaseActivity {
+
+}

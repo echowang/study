@@ -1,0 +1,171 @@
+package com.mh.sdk.platform;
+
+import com.mh.sdk.MHLoginActivity;
+import com.mh.sdk.MHPaymentActivity;
+import com.mh.sdk.service.MHGenericService;
+import com.mh.sdk.service.MHLoginService;
+import com.mh.sdk.util.MHPlatformConfig;
+
+import android.content.Context;
+import android.content.Intent;
+
+public class MHPlatform {
+	private static MHPlatform platform;
+	private MHPlatformCallBack callBackListener;
+	private Context context;
+	
+	public static MHPlatform getMHPlatformInstance(){
+		if(platform == null){
+			platform = new MHPlatform();
+		}
+		
+		return platform;
+	}
+	
+	private MHPlatform(){
+		
+	}
+	
+	/**
+	 * sdk的初始化
+	 * @param appid
+	 * @param appkey
+	 */
+	public static int mhPlatformInit(String appid,String appkey){
+		if(appid.trim().length() == 0 && appkey.trim().length() == 0){
+			return MHPlatformCallBackCode.INITERROR;
+		}
+		MHPlatformConfig.APPID = appid;
+		MHPlatformConfig.APPKEY = appkey;
+		
+		MHPlatformConfig.isInitSDK = true;
+		
+		return MHPlatformCallBackCode.SUCCESS;
+	}
+	
+	/**
+	 * 用户登录
+	 * @param context
+	 * @param callBack
+	 */
+	public int mhPlatformLogin(Context context,MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			this.context = context;
+			this.setCallBackListener(callBack);
+			boolean isAutoLogin = MHGenericService.getIsAutoLogin(context);
+			String username = MHGenericService.getLastLoginUser(context);
+			if (isAutoLogin && (username != null && !"".equals(username))) {
+				String password = MHGenericService.getPasswordByUsername(context, username);
+				MHLoginService loginService = new MHLoginService(context);
+				loginService.userLogin(username, password);
+			} else {
+				Intent intent = new Intent(context, MHLoginActivity.class);
+				context.startActivity(intent);
+			}
+			
+			return MHPlatformCallBackCode.SUCCESS;
+		}
+		
+		return MHPlatformCallBackCode.INITERROR;
+	}
+	
+	/**
+	 * 切换账号
+	 * @param context
+	 * @param callBack
+	 */
+	public int mhPlatformChangeUser(Context context,MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			if(MHPlatformConfig.isLogin){
+				this.context = context;
+				this.setCallBackListener(callBack);
+				
+				MHPlatformConfig.isLogin = false;
+				this.callBackListener.handleUserLogout();
+				
+				Intent intent = new Intent(context, MHLoginActivity.class);
+				context.startActivity(intent);
+				
+				return MHPlatformCallBackCode.SUCCESS;
+			}
+			
+			return MHPlatformCallBackCode.LOGINERROR;
+		}
+		
+		return MHPlatformCallBackCode.INITERROR;
+	}
+	
+	/**
+	 * 用户充值
+	 * @param context
+	 * @param subject   商品名称
+	 * @param gameid	游戏id
+	 * @param serverid	服务器编号
+	 * @param callBack	回调监听器
+	 * @return
+	 */
+	public int mhPlatformPayment(Context context, String subject, String gameid, String serverid, MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			if(MHPlatformConfig.isLogin){
+				this.context = context;
+				this.setCallBackListener(callBack);
+				MHOrderEntity orderEntity = new MHOrderEntity();
+				orderEntity.setGameid(gameid);
+				orderEntity.setMerchanturl(MHPlatformConfig.CALLBACKURL);
+				orderEntity.setSrvid(serverid);
+				orderEntity.setSubject(subject);
+				orderEntity.setUsername(MHPlatformConfig.username);
+				Intent intent = new Intent(context, MHPaymentActivity.class);
+				intent.putExtra("order", orderEntity.toString());
+				intent.putExtra("merchanturl", orderEntity.getMerchanturl());
+				context.startActivity(intent);
+				
+				return MHPlatformCallBackCode.SUCCESS;
+			}
+			return MHPlatformCallBackCode.LOGINERROR;
+		}
+		
+		return MHPlatformCallBackCode.INITERROR;
+	}
+	
+	/**
+	 * 用户退出
+	 * @param context
+	 * @param callBack
+	 * @return
+	 */
+	public int mhPlatformLogout(Context context, MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			if(MHPlatformConfig.isLogin){
+				this.context = context;
+				this.setCallBackListener(callBack);
+				
+				MHPlatformConfig.isLogin = false;
+				this.callBackListener.handleUserLogout();
+				
+				return MHPlatformCallBackCode.SUCCESS;
+			}
+			return MHPlatformCallBackCode.LOGINERROR;
+		}
+		
+		return MHPlatformCallBackCode.INITERROR;
+	}
+	
+	/**
+	 * 获取用户状态
+	 * @return
+	 * true：当前已经有用户登录
+	 * false:当前还没有用户登录
+	 */
+	public boolean mhPlatformGetUserStatue(){
+		return MHPlatformConfig.isLogin;
+	}
+
+	public MHPlatformCallBack getCallBackListener() {
+		return callBackListener;
+	}
+
+	public void setCallBackListener(MHPlatformCallBack callBackListener) {
+		this.callBackListener = callBackListener;
+	}
+}

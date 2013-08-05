@@ -1,0 +1,97 @@
+package com.mh.sdk.demo;
+
+import com.mh.sdk.platform.MHPlatform;
+import com.mh.sdk.platform.MHPlatformCallBack;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+
+public class MainActivity extends Activity implements OnClickListener{
+	private Button loginBtn;
+	private Button changeUserBtn;
+	private Button paymentBtn;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);  
+		
+		setContentView(R.layout.activity_main);
+		
+		loginBtn = (Button) findViewById(R.id.loginBtn);
+		loginBtn.setOnClickListener(this);
+		changeUserBtn = (Button) findViewById(R.id.changeUserBtn);
+		changeUserBtn.setOnClickListener(this);
+		paymentBtn = (Button) findViewById(R.id.paymentBtn);
+		paymentBtn.setOnClickListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		MHPlatform platform = MHPlatform.getMHPlatformInstance();
+		switch (v.getId()) {
+		case R.id.loginBtn:
+			platform.mhPlatformLogin(this, new MHPlatformCallBack() {
+				@Override
+				public void leavePlatform() {
+					// TODO Auto-generated method stub
+					super.leavePlatform();
+				}
+				
+				@Override
+				public void loginResult(int result, String uid, String username) {
+					// TODO Auto-generated method stub
+					super.loginResult(result, uid, username);
+				}
+			});
+			break;
+		case R.id.changeUserBtn:
+			platform.mhPlatformChangeUser(this, new MHPlatformCallBack() {
+				@Override
+				public void leavePlatform() {
+					// TODO Auto-generated method stub
+					super.leavePlatform();
+				}
+				
+				@Override
+				public void loginResult(int result, String uid, String username) {
+					// TODO Auto-generated method stub
+					super.loginResult(result, uid, username);
+				}
+			});
+			break;
+		case R.id.paymentBtn:
+			platform.mhPlatformPayment(this, "serverid", "roleid", new MHPlatformCallBack() {
+				@Override
+				public void leavePlatform() {
+					// TODO Auto-generated method stub
+					super.leavePlatform();
+				}
+				
+				@Override
+				public void paymentResult(int result) {
+					// TODO Auto-generated method stub
+					super.paymentResult(result);
+				}
+			});
+			break;
+		default:
+			break;
+		}
+	}
+
+}

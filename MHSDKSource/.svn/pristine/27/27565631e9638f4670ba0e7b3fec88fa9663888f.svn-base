@@ -1,0 +1,13 @@
+package com.mh.sdk.util;
+
+public class MHPlatformConfig {
+	public final static String LOGINURL = "http://p.txwy.com/api/signin";
+	public final static String REGISTER = "http://p.txwy.com/api/reg";
+	
+	public final static String APPID = "";
+	public final static String APPKEY = "";
+	
+	public static boolean isInitSDK = false;
+	public static boolean isLogin = false;
+	
+}

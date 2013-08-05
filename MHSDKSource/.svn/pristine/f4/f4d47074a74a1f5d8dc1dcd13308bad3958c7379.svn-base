@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color" >
+    
+    <RelativeLayout android:id="@+id/chargecenter_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/mh_title_bg"
+        android:orientation="horizontal">
+        <Button android:id="@+id/chargecenter_back"
+            android:layout_width="54dp"
+            android:layout_height="32.0dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/pps_back"
+            android:textSize="16.0sp"
+            android:textColor="@color/button_color"
+            android:shadowDy="2"
+            android:shadowDx="0"
+            android:shadowRadius="1"
+            android:background="@drawable/mh_back_selected"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pps_rechargecenter"
+            android:textColor="@color/button_color"
+            android:textSize="20.0sp"
+            android:layout_centerInParent="true"
+            />
+        
+        <Button android:id="@+id/chargecenter_close"
+        	android:layout_width="54.0dp"
+        	android:layout_height="32.0dp"
+        	android:text="@string/pps_close"
+        	android:textColor="@color/button_color"
+        	android:shadowDy="2"
+            android:shadowDx="0"
+            android:shadowRadius="1"
+        	android:layout_centerVertical="true"
+        	android:layout_alignParentRight="true"
+        	android:layout_marginRight="10.0dp"
+        	android:background="@drawable/mh_finish_selected"/>
+        
+    </RelativeLayout>
+    
+    <WebView android:id="@+id/chargecenter_webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/chargecenter_title"
+        android:tag="0"/>
+        
+
+</RelativeLayout>

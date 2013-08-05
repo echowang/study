@@ -1,0 +1,144 @@
+package com.mh.sdk.platform;
+
+import com.mh.sdk.MHLoginActivity;
+import com.mh.sdk.MHPaymentActivity;
+import com.mh.sdk.service.MHGenericService;
+import com.mh.sdk.util.MHPlatformConfig;
+
+import android.content.Context;
+import android.content.Intent;
+
+public class MHPlatform {
+	private static MHPlatform platform;
+	private MHPlatformCallBack callBackListener;
+	private Context context;
+	
+	public static MHPlatform getMHPlatformInstance(){
+		if(platform == null){
+			platform = new MHPlatform();
+		}
+		
+		return platform;
+	}
+	
+	private MHPlatform(){
+		
+	}
+	
+	/**
+	 * sdk的初始化
+	 * @param appid
+	 * @param appkey
+	 */
+	public static void mhPlatformInit(String appid,String appkey){
+		if(appid.trim().length() == 0 && appkey.trim().length() == 0){
+			return ;
+		}
+		MHPlatformConfig.APPID = appid;
+		MHPlatformConfig.APPKEY = appkey;
+		
+		MHPlatformConfig.isInitSDK = true;
+	}
+	
+	/**
+	 * 用户登录
+	 * @param context
+	 * @param callBack
+	 */
+	public void mhPlatformLogin(Context context,MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			this.context = context;
+			this.setCallBackListener(callBack);
+			boolean isAutoLogin = MHGenericService.getIsAutoLogin(context);
+			String username = MHGenericService.getLastLoginUser(context);
+			if (isAutoLogin && (username != null && !"".equals(username))) {
+//				this.context = context;
+//				isLogin = true;
+//				if (isShowDelayLogin) {
+//					Builder builder = new Builder(context);
+//					builder.setMessage("3秒后自动登录");
+//					builder.setTitle("提示");
+//					builder.setPositiveButton("取消自动登录", new OnClickListener() {
+	//
+//						@Override
+//						public void onClick(DialogInterface dialog, int which) {
+//							// TODO Auto-generated method stub
+//							isLogin = false;
+//							dialog.dismiss();
+//							Intent intent = new Intent(
+//									PPSPlatform.this.context,
+//									LoginActivity.class);
+//							PPSPlatform.this.context.startActivity(intent);
+//						}
+//					});
+//					dialog = builder.create();
+//					dialog.setCanceledOnTouchOutside(false);
+//					
+//					delayCount = 3;
+//					
+//					Message msg = new Message();
+//					msg.what = 1;
+//					msg.obj = username;
+//					handler.sendMessage(msg);
+//					
+//					dialog.show();
+//				}else{
+//					Message msg = new Message();
+//					msg.what = 0;
+//					msg.obj = username;
+//					handler.sendMessage(msg);
+//				}
+//				
+			} else {
+				Intent intent = new Intent(context, MHLoginActivity.class);
+				context.startActivity(intent);
+			}
+		}
+	}
+	
+	/**
+	 * 切换账号
+	 * @param context
+	 * @param callBack
+	 */
+	public void mhPlatformChangeUser(Context context,MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			this.context = context;
+			this.setCallBackListener(callBack);
+			Intent intent = new Intent(context, MHLoginActivity.class);
+			context.startActivity(intent);
+		}
+	}
+	
+	/**
+	 * 用户充值
+	 * @param context
+	 * @param callBack
+	 */
+	public void mhPlatformPayment(Context context, String serverId, String roleId, MHPlatformCallBack callBack){
+		if(MHPlatformConfig.isInitSDK){
+			this.context = context;
+			this.setCallBackListener(callBack);
+			Intent intent = new Intent(context, MHPaymentActivity.class);
+			context.startActivity(intent);
+		}
+	}
+	
+	/**
+	 * 获取用户状态
+	 * @return
+	 * true：当前已经有用户登录
+	 * false:当前还没有用户登录
+	 */
+	public boolean mhPlatformGetUserStatue(){
+		return MHPlatformConfig.isLogin;
+	}
+
+	public MHPlatformCallBack getCallBackListener() {
+		return callBackListener;
+	}
+
+	public void setCallBackListener(MHPlatformCallBack callBackListener) {
+		this.callBackListener = callBackListener;
+	}
+}

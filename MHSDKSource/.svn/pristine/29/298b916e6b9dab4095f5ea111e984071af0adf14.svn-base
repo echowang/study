@@ -1,0 +1,184 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color" >
+
+    <RelativeLayout
+        android:id="@+id/login_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/mh_title_bg"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/login_back"
+            android:layout_width="54dp"
+            android:layout_height="32.0dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/mh_back_selected"
+            android:text="@string/pps_back"
+            android:textColor="@color/button_color"
+            android:textSize="16.0sp"
+            android:shadowDy="2"
+            android:shadowDx="0"
+            android:shadowRadius="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/mh_logo" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_title" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/login_table"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/mh_list_coner_white"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="48.0dp"
+                    android:layout_margin="1dip"
+                    android:background="@drawable/mh_list_coner_cell" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:gravity="center"
+                        android:text="@string/pps_username"
+                        android:textColor="@color/text_color"
+                        android:textSize="18.0sp" />
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3" >
+
+                        <EditText
+                            android:id="@+id/login_username"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_centerVertical="true"
+                            android:singleLine="true"
+                            android:paddingRight="20.0dp"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/pps_username_hint"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/hint_color" />
+
+                        <ImageView android:id="@+id/login_down_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:padding="10.0dp"
+                            android:visibility="gone"
+                            android:src="@drawable/mh_arrow" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="48.0dp"
+                    android:layout_marginBottom="1dip"
+                    android:layout_marginLeft="1dip"
+                    android:layout_marginRight="1dip"
+                    android:background="@drawable/mh_list_coner_cell1" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:gravity="center"
+                        android:text="@string/pps_password"
+                        android:textColor="@color/text_color"
+                        android:textSize="18.0sp" />
+
+                    <EditText
+                        android:id="@+id/login_password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:singleLine="true"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/pps_password_hint"
+                        android:inputType="textPassword"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/hint_color" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/login_autologin"
+                style="@style/PPSCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/login_table"
+                android:layout_marginLeft="20.0dp"
+                android:layout_marginTop="8.0dp"
+                android:text="@string/pps_autoLogin"
+                android:textColor="@android:color/black"
+                android:textSize="16.0sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_table"
+                android:layout_marginTop="50.0dp" >
+
+                <Button
+                    android:id="@+id/login_register"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15.0dp"
+                    android:layout_marginRight="10.0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/mh_login_selected"
+                    android:text="@string/pps_register"
+                    android:textColor="@color/button_color"
+                    android:textSize="18.0sp"
+                    android:shadowDy="2"
+                    android:shadowDx="0"
+                    android:shadowRadius="1" />
+
+                <Button
+                    android:id="@+id/login_login"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15.0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/mh_login_selected"
+                    android:text="@string/pps_login"
+                    android:textColor="@color/button_color"
+                    android:textSize="18.0sp"
+                    android:shadowDy="2"
+                    android:shadowDx="0"
+                    android:shadowRadius="1" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

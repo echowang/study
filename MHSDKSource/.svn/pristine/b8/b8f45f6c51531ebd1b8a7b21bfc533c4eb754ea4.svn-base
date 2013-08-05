@@ -1,0 +1,14 @@
+package com.mh.sdk;
+
+import android.os.Bundle;
+import android.app.Activity;
+
+public class MHLoginActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.mh_login_activity);
+	}
+
+}

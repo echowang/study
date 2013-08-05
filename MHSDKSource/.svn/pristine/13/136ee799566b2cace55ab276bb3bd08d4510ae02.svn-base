@@ -1,0 +1,35 @@
+package com.mh.sdk.platform;
+
+public abstract class MHPlatformCallBack {
+	/**
+	 *  离开MHPlatform界面
+	 */
+	public void leavePlatform() {
+
+	}
+
+	/**
+	 *  登录结果
+	 * @param result
+	 * @param uid
+	 * @param username
+	 */
+	public void loginResult(int result, String uid, String username) {
+		
+	}
+
+	/**
+	 *  充值结果 1 -- 表示充值成功 0 -- 表示充值失败
+	 * @param result
+	 */
+	public void paymentResult(int result) {
+
+	}
+
+	/**
+	 *  用户注销
+	 */
+	public void logout() {
+
+	}
+}

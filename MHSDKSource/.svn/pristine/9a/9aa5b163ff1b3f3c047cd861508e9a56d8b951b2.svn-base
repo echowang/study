@@ -1,0 +1,118 @@
+package com.mh.sdk;
+
+import com.mh.sdk.platform.MHPlatform;
+import com.mh.sdk.platform.MHPlatformCallBackCode;
+import com.mh.sdk.util.MHPlatformConfig;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+
+public class MHPaymentActivity extends MHSDKBaseActivity implements OnClickListener{
+	private WebView mWebView;
+	private Button backBtn;
+	private Button closeBtn;
+	private String merchanturl;
+	private ProgressDialog dialog;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentViewByName("mh_payment_activity");
+		
+		Intent intent = this.getIntent();
+		merchanturl = intent.getStringExtra("merchanturl");
+		String orderString = intent.getStringExtra("order");
+		
+		dialog = new ProgressDialog(this);
+		dialog.setMessage("正在加载");
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false);
+		
+		backBtn = (Button) findViewByName("chargecenter_back");
+		backBtn.setOnClickListener(this);
+		
+		closeBtn = (Button) findViewByName("chargecenter_close");
+		closeBtn.setOnClickListener(this);
+		
+		mWebView = (WebView) findViewByName("chargecenter_webview");
+		
+		mWebView.getSettings().setJavaScriptEnabled(true);
+
+		mWebView.setWebViewClient(new WebViewClient() {
+
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				// TODO Auto-generated method stub
+				super.shouldOverrideUrlLoading(view, url);
+				System.out.println("url => " + url);
+				if (url.startsWith(merchanturl)) {
+					MHPlatform.getMHPlatformInstance().getCallBackListener().paymentResult(MHPlatformCallBackCode.SUCCESS);
+					MHPaymentActivity.this.finish();
+				} else{
+					view.loadUrl(url);
+				}
+				return true;
+			}
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				// TODO Auto-generated method stub
+				super.onPageFinished(view, url);
+				
+				dialog.cancel();
+			}
+
+			@Override
+			public void onPageStarted(WebView view, String url,
+					Bitmap favicon) {
+				// TODO Auto-generated method stub
+				super.onPageStarted(view, url, favicon);
+				dialog.show();
+			}
+		});
+		
+		String url = MHPlatformConfig.PAYMENTURL + "?" + orderString;
+//		System.out.println("payment url => " + url);
+		mWebView.loadUrl(url);
+	}
+	
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		dialog.dismiss();
+		super.finish();
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (backBtn.getId() == v.getId()) {
+//			this.finish();
+			if (!mWebView.canGoBack()) {
+//				if (isLeavePlatform) {
+//					MHPlatform.getInstance().getListener().leavePlatform();
+//				}
+				MHPlatform.getMHPlatformInstance().getCallBackListener().leavePlatform();
+				this.finish();
+			}else{
+				mWebView.goBack();
+			}
+		}
+		
+		if (closeBtn.getId() == v.getId()) {
+//			if (isLeavePlatform) {
+//				PPSPlatform.getInstance().getListener().leavePlatform();
+//			}
+			MHPlatform.getMHPlatformInstance().getCallBackListener().leavePlatform();
+			this.finish();
+		}
+	}
+}

@@ -1,0 +1,66 @@
+package com.mh.sdk.service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.mh.sdk.util.MHHttpClient;
+import com.mh.sdk.util.MHPlatformConfig;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
+
+public class MHLoginService extends AsyncTask<String, Integer, String>{
+	private ProgressDialog dialog;
+	
+	public MHLoginService(Context context){
+		dialog = new ProgressDialog(context);
+		dialog.setMessage("正在登录");
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false);
+	}
+
+	public void userLogin(String username,String password){
+		if (username == null || "".equals(username) || password == null || "".equals(password)) {
+			return ;
+		}
+		this.execute(username,password);
+	}
+	
+	@Override
+	protected String doInBackground(String... params) {
+		// TODO Auto-generated method stub
+		String username = params[0];
+		String password = params[1];
+		
+		String time = String.valueOf(System.currentTimeMillis() / 1000);
+		String sign = MHPlatformConfig.getSign(time);
+		
+		Map<String,String> param = new HashMap<String,String>();
+		param.put("appid", MHPlatformConfig.APPID);
+		param.put("appkey", MHPlatformConfig.APPKEY);
+		param.put("sig", sign);
+		param.put("time", time);
+		param.put("username", username);
+		param.put("password", password);
+		
+		String result = MHHttpClient.get(MHPlatformConfig.LOGINURL + "?" + MHHttpClient.buildParam(param).trim());
+		System.out.println("login result => " + result);
+		return result;
+	}
+	
+	@Override
+	protected void onPreExecute() {
+		// TODO Auto-generated method stub
+		super.onPreExecute();
+		dialog.show();
+	}
+
+	@Override
+	protected void onPostExecute(String result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+		
+		dialog.dismiss();
+	}
+}

@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/com/mh/sdk/MHFindpwdActivity.java=UTF-8
+encoding//src/com/mh/sdk/MHLoginActivity.java=UTF-8
+encoding//src/com/mh/sdk/MHPaymentActivity.java=UTF-8
+encoding//src/com/mh/sdk/MHRegisterActivity.java=UTF-8
+encoding//src/com/mh/sdk/MHSDKBaseActivity.java=UTF-8
+encoding//src/com/mh/sdk/platform/MHOrderEntity.java=UTF-8
+encoding//src/com/mh/sdk/platform/MHPlatform.java=UTF-8
+encoding//src/com/mh/sdk/platform/MHPlatformCallBack.java=UTF-8
+encoding//src/com/mh/sdk/service/MHGenericService.java=UTF-8
+encoding//src/com/mh/sdk/service/MHLoginService.java=UTF-8
+encoding//src/com/mh/sdk/service/MHRegisterService.java=UTF-8
+encoding//src/com/mh/sdk/util/MHEncryptUtil.java=UTF-8
+encoding//src/com/mh/sdk/util/MHGenericUtil.java=UTF-8
+encoding//src/com/mh/sdk/util/MHHttpClient.java=UTF-8
